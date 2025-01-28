@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GroceryStore.Models.DataLayer.Product>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row align-items-center">
+    <div class="col">
+        <h2>Products</h2>
+    </div>
+    <div class="col text-end">
+        <a href="@Url.Action("CreateProduct")" class="btn btn-primary">New Product</a>
+    </div>
+</div>
+
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>$@product.Price</td>
+                <td>@product.Stock</td>
+                <td>@product.Category?.CategoryName</td>
+                <td>
+                    <a href="@Url.Action("CreateProduct", new { id = product.ProductId })" class="btn btn-sm btn-warning">Edit</a>
+                    @* <a href="@Url.Action("DeleteProduct", new { id = product.ProductId })" class="btn btn-sm btn-danger">Delete</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

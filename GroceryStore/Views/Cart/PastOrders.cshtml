@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GroceryStore.Models.DataLayer.Order>
+
+@{
+    ViewBag.Title = "Past Orders";
+}
+
+<h2>Your Past Orders</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate?.ToString("g")</td>
+                    <td>@order.TotalAmount?.ToString("C")</td>
+                    <td>
+                        <a asp-action="OrderDetails" asp-route-orderId="@order.OrderId">View Details</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">You have no past orders.</td>
+            </tr>
+        }
+    </tbody>
+</table>

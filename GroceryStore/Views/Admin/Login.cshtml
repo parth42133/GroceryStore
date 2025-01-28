@@ -1,0 +1,82 @@
+﻿@model GroceryStore.Models.LoginModel
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+            .login-container h2 {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body style="background-image: url(/images/background-image.jpg);background-size: cover;background-repeat: no-repeat;">
+    <div class="container mt-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6 border border-5">
+                <div class="card-body">
+                    <div class="m-5 text-center">
+                        <h3>
+                            Admin Login
+                        </h3>
+
+                    </div>
+                    <form asp-action="Login">
+                        <div class="form-group">
+
+                            <input type="text" asp-for="Email" class="form-control" id="username" placeholder="E-mail">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="password" asp-for="Password" class="form-control" id="password" placeholder="password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        </div>
+                        <div class="d-flex justify-content-center m-3">
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

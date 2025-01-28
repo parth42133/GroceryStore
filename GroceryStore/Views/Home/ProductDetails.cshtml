@@ -1,0 +1,65 @@
+﻿@model GroceryStore.Models.DataLayer.Product
+
+@{
+    ViewBag.Title = "Product Details";
+}
+<style>
+    .image-container {
+        max-width: 100%;
+        max-height: 400px; /* Set a maximum height for the image */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .image-container img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain; /* Ensure the image scales down and fits within the container */
+        }
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="image-container">
+                <img class="img-fluid rounded shadow-sm" src="@Url.Content("~/images/" + Model.ImageUrl)" alt="@Model.Name" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 class="display-5">@Model.Name</h2>
+            <h4 class="text-success">$@Model.Price</h4>
+            <p class="lead">@Model.Description</p>
+            <ul class="list-unstyled">
+                <li><strong>Category:</strong> @Model.Category?.CategoryName</li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-lg mt-3" onclick="addToCart(@Model.ProductId)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+@Html.AntiForgeryToken()
+
+<script>
+    function addToCart(productId) {
+        fetch('/Cart/AddToCart?id=' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Include this for anti-forgery token
+            },
+            body: JSON.stringify({ id: productId })
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Added to cart successfully');
+                    // Optionally, update the cart UI or count here
+                } else {
+                    alert('Error adding to cart');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+

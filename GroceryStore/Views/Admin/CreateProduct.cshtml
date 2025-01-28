@@ -1,0 +1,44 @@
+﻿@model GroceryStore.Models.ProductRequestModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Product</h2>
+
+<form asp-action="CreateProduct" enctype="multipart/form-data" method="post">
+    <input hidden asp-for="ProductId" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+ 
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Category</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label  class="control-label">Product Image</label>
+        <input type="file" class="form-control" id="imageFile" asp-for="fileData">
+        <span asp-validation-for="fileData" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

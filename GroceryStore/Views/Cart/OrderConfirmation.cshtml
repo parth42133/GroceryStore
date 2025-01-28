@@ -1,0 +1,34 @@
+﻿@model GroceryStore.Models.DataLayer.Order
+
+@{
+    ViewBag.Title = "Order Confirmation";
+}
+
+<h2>Thank You for Your Order!</h2>
+<p>Your order has been successfully placed. Here are the details:</p>
+
+<p><strong>Order ID:</strong> @Model.OrderId</p>
+<p><strong>User ID:</strong> @Model.UserId</p>
+<p><strong>Order Date:</strong> @Model.OrderDate?.ToString("g")</p>
+<p><strong>Total Amount:</strong> @Model.TotalAmount?.ToString("C")</p>
+
+<h4>Order Items</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Product?.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price?.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

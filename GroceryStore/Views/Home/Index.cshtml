@@ -1,0 +1,87 @@
+﻿@model IEnumerable<GroceryStore.Models.DataLayer.Product>
+
+<style>
+    .fixed-card-size {
+        width: 100%;
+        height: 400px; /* Adjust this to your desired card height */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .fixed-size-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .category-button {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="row mb-4">
+    <div class="col-12">
+     <a href="@Url.Action("Index")" class="btn btn-sm btn-outline-secondary category-button @(string.IsNullOrEmpty(Context.Request.Query["categoryId"]) ? "active" : "")">
+    All
+</a>
+
+        @foreach (var category in ViewBag.Categories as List<GroceryStore.Models.DataLayer.Category>)
+        {
+            <a href="@Url.Action("Index", new { categoryId = category.CategoryId })" class="btn btn-sm btn-outline-secondary category-button @(category.CategoryId == Convert.ToInt32(Context.Request.Query["categoryId"]) ? "active" : "")">
+                @category.CategoryName
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-3">
+            <div class="card fixed-card-size mb-4 shadow-sm">
+                <img class="card-img-top fixed-size-image" src="@Url.Content("~/images/" + @product.ImageUrl)" alt="@product.Name">
+                <div class="card-body">
+                    <h5>@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="@Url.Action("ProductDetails", new { id = product.ProductId })" class="btn btn-sm btn-outline-secondary">View</a>
+                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addToCart(@product.ProductId)">Add to Cart</button>
+                        </div>
+                        <small class="text-muted">$@product.Price</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@Html.AntiForgeryToken()
+
+<script>
+    function addToCart(productId) {
+        fetch('/Cart/AddToCart?id=' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+            },
+            body: JSON.stringify({ id: productId })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Added to cart successfully');
+            } else {
+                alert('Error adding to cart');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>

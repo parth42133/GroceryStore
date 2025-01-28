@@ -1,0 +1,50 @@
+﻿@model IEnumerable<GroceryStore.Models.DataLayer.User>
+
+@{
+    ViewData["Title"] = "User";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 ">
+        <h1>User</h1>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+        <a class="btn btn-primary" asp-controller="Admin" asp-action="AddUser"> add New</a>
+    </div>
+</div>
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+
+            <th>
+                Username
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
+                IsAdmin
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+              
+                <td>
+                    <text>@(item.IsAdmin.HasValue ? (item.IsAdmin.Value ? "yes" : "no") : "no")</text>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
