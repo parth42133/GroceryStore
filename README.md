@@ -38,3 +38,10 @@ Tech Stack
   Framework: .NET
   IDE: Visual Studio 2022
 
+Screenshots:
+
+![login page](https://github.com/user-attachments/assets/ce45db74-3784-4c13-84d1-36609c34f61b)
+![register page](https://github.com/user-attachments/assets/1dbfb4aa-287e-447f-9467-bade91892c6b)
+![Home Page](https://github.com/user-attachments/assets/d372472f-5968-44d6-94ef-02805ae4cacf)
+![cart](https://github.com/user-attachments/assets/3b24f237-b08f-43bd-b8ae-a54fa2e55d68)
+![Admin product](https://github.com/user-attachments/assets/ec8273b2-9529-4e67-8b5d-d2a78c8ed023)
